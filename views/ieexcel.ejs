@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="../public/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="../public/javascripts/jquery-3.4.1.min.js"></script>
+    <script src="../public/javascripts/angular.min.js"></script>
+    <script src="../public/javascripts/angular-filter.min.js"></script>
+    <script src="../public/javascripts/ng-file-upload.min.js"></script>
+    <script src="../public/javascripts/xlsx.full.min.js"></script>
+    <script src="../public/javascripts/jszip.js"></script>
+    <script src="../public/javascripts/jquery.table2excel.min.js"></script>
+    <script src="../public/controllers/myCtrl.js"></script>
+  </head>
+  <body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+      <h1><%= title %></h1>
+      <h2>Upload Excel File <small>(in .xls / .xlsx format only)</small></h2>
+      <div class="row">
+        <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <div class="form-group">
+            <label style="margin-top: 8px" class="control-label col-md-3 col-sm-3 col-xs-12">Upload Excel File</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input class="form-control" type="file" ngf-select="SelectFile($file)" required />
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <input class="btn btn-primary" type="button" value="Upload" ng-click="Upload()" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12"></div>
+        <div class="form-horizontal table table-responsive">
+          <input type="button" class="btn btn-primary" value="Export to Excel" ng-hide="ete" onclick="ExportToExcel(this, 'Farmer Data PPAS')" style="float: right" />
+          <table id="excelData" class="table table-hover table-striped jambo_table bulk_action text-center">
+            <thead>
+              <tr>
+                <th>Serial No.</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>GP</th>
+                <th>Farmer Name</th>
+                <th>Gender</th>
+                <th>Relation Type</th>
+                <th>Father / Husband Name</th>
+                <th>Aadhaar No.</th>
+                <th>Farmer Code</th>
+                <th>Mobile No.</th>
+                <th>Village / Mouza</th>
+                <th>Village / Mouza (Eng)</th>
+                <th>Tahasil</th>
+                <th>Tahasil (Eng)</th>
+                <th>RI Circle</th>
+                <th>RI Circle (Eng)</th>
+                <th>Khata No.</th>
+                <th>Plot No.</th>
+                <th>RT Name</th>
+                <th>RT Name (Eng)</th>
+                <th>Relationship with RT</th>
+                <th>Land Type</th>
+                <th>Land Type (Eng)</th>
+                <th>Source of Irrigation</th>
+                <th>Source of Irrigation (Eng)</th>
+                <th>Area (in acre)</th>
+                <th>Cultivated Area (in acre)</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="i in array">
+              <td>{{$index + 1}}</td>
+              <td>{{i.District}}</td>
+              <td>{{i.Block}}</td>
+              <td>{{i.GP}}</td>
+              <td>{{i.FarmerName}}</td>
+              <td>{{i.Gender}}</td>
+              <td>{{i.RelationType}}</td>
+              <td>{{i.FatherOrHusbandName}}</td>
+              <td>{{i.AadhaarNo}}</td>
+              <td>{{i.FarmerCode}}</td>
+              <td>{{i.MobileNo}}</td>
+              <td>{{i.VillageOrMouza}}</td>
+              <td>{{i.VillageOrMouzaEng}}</td>
+              <td>{{i.Tahasil}}</td>
+              <td>{{i.TahasilEng}}</td>
+              <td>{{i.RICircle}}</td>
+              <td>{{i.RICircleEng}}</td>
+              <td>{{i.KhataNo}}</td>
+              <td>{{i.PlotNo}}</td>
+              <td>{{i.RTName}}</td>
+              <td>{{i.RTNameEng}}</td>
+              <td>{{i.RelationshipWithRT}}</td>
+              <td>{{i.LandType}}</td>
+              <td>{{i.LandTypeEng}}</td>
+              <td>{{i.SourceOfIrrigation}}</td>
+              <td>{{i.SourceOfIrrigationEng}}</td>
+              <td>{{i.AreaInAcre}}</td>
+              <td>{{i.CultivatedAreaInAcre}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      function ExportToExcel(tableID, excelName) {
+          $("#" + tableID.nextElementSibling.id).table2excel({
+              filename: excelName + ".xls",
+          });
+      }
+    </script>
+  </body>
+</html>
